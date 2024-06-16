@@ -14,6 +14,8 @@ try {
   await client.connect();
   // Send a ping to confirm a successful connection
   await client.db("space-tourism-db").command({ ping: 1 });
+
+  
   console.log(
    "Pinged your deployment. You successfully connected to MongoDB!"
   );
@@ -22,5 +24,6 @@ try {
 }
 
 let db = client.db("space-tourism-db");
+
 
 export default db;
