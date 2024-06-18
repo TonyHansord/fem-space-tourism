@@ -1,12 +1,28 @@
-import express from 'express'
-import cors from 'cors'
-import crew from './routes/crew.js'
+import dotenv from 'dotenv'
+dotenv.config()
 
-const PORT = process.env.PORT || 5000
+import express, { json } from 'express'
+import cors from 'cors'
+import pkg from 'mongoose'
+const { connect, connection } = pkg
+
 const app = express()
+const PORT = process.env.PORT || 5050
+
+connect(process.env.ATLAS_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+
+const db = connection
+db.on('error', error => console.error(error))
+db.once('open', () => console.log('Connected to Database'))
 
 app.use(cors())
-app.use(express.json())
+app.use(json())
+
+import crew from './routes/crew.js'
+
 app.use('/crew', crew)
 
 app.listen(PORT, () => {
