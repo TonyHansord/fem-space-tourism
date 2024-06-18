@@ -9,16 +9,12 @@ const { connect, connection } = pkg
 const app = express()
 const PORT = process.env.PORT || 5050
 
-connect(process.env.ATLAS_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+connect(process.env.ATLAS_URI, {})
 
 const db = connection
 db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Database'))
 
-app.use(cors())
 app.use(json())
 
 import crew from './routes/crew.js'
